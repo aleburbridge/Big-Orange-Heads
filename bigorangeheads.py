@@ -85,20 +85,8 @@ def create_suspense():
     print("..")
     time.sleep(1)
     print("...")
-    time.sleep(1)
+    time.sleep(2)
 
-def display_wishes():
-    print("1: " + wishList[random.randint(0, (len(wishList) - 1 ))])
-    print(line_break)
-    print(twistList[random.randint(0, (len(twistList) - 1 ))])
-    print(twistList[random.randint(0, (len(twistList) - 1 ))])
-    print(twistList[random.randint(0, (len(twistList) - 1 ))])
-    print()
-    print("2: " + wishList[random.randint(0, (len(wishList) - 1 ))])
-    print(line_break)
-    print(twistList[random.randint(0, (len(twistList) - 1 ))])
-    print(twistList[random.randint(0, (len(twistList) - 1 ))])
-    print(twistList[random.randint(0, (len(twistList) - 1 ))])
 
 displayIntro()
 print()
@@ -109,15 +97,56 @@ genie_player = list_players[(random.randint(0, (int(number_of_players) - 1)))]
 dictionary_list_players = []
 
 for item in list_players:
-    item = { 'name':item, 'gold':0, 'big_orange_head': 'no', 'magic wand': 'no', 'wishes': 3 }
+    item = { 
+        'name': item, 
+        'gold': 0, 
+        'big_orange_head': 'no', 
+        'magic wand': 'no', 
+        'wishes': 3 
+        }
     dictionary_list_players.append(item)
 
-print(dictionary_list_players)
+# displays info at the top of the screen!
+def gold_tracker():
+    gold = 0
+    for index in range(len(dictionary_list_players)):
+        for key in dictionary_list_players[index]:
+            if key == 'gold':
+                gold += int(dictionary_list_players[index][key])
+    return gold
+
+
+
 humanItems = []
 genieItems = []
-humanGoldTotal = ""
+humanGoldTotal = gold_tracker()
 wishesLeft = ""
 winningGoldAmount = number_of_players * 500
+
+
+def game_info():
+    print("gold - " + str(humanGoldTotal))
+    print("items - ")
+
+def display_wishes():
+    game_info()
+    create_suspense()
+
+    print("The wishes for this round are")
+    firstWish = ("1: " + wishList[random.randint(0, (len(wishList) - 1 ))])
+    secondWish = ("2: " + wishList[random.randint(0, (len(wishList) - 1 ))])
+    print(firstWish)
+    print(line_break)
+    print(twistList[random.randint(0, (len(twistList) - 1 ))])
+    print(twistList[random.randint(0, (len(twistList) - 1 ))])
+    print(twistList[random.randint(0, (len(twistList) - 1 ))])
+    print()
+    print(secondWish)
+    print(line_break)
+    print(twistList[random.randint(0, (len(twistList) - 1 ))])
+    print(twistList[random.randint(0, (len(twistList) - 1 ))])
+    print(twistList[random.randint(0, (len(twistList) - 1 ))])
+
 
 create_suspense()
 
@@ -127,7 +156,6 @@ wishCounter = len(list_players)
 input("Press enter to start the first round!")
 os.system(clear_screen_command)
 
-print("The wishes for this round are")
-create_suspense()
+
 display_wishes()
 
