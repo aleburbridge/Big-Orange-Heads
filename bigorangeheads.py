@@ -53,7 +53,13 @@ wishListTuples = [
     # items
     ("Genie's lamp (Genie goes back in lamp and humans pick twist)", gain_250g),
     ("Magic piggie bank (100g per turn for the rest of the game)", gain_250g),
-    ("Magic Wand (pick a big orange head to remove for 3 turns)", gain_250g)
+    ("Magic Wand (pick a big orange head to remove for 3 turns)", gain_250g),
+
+    #LEGENDAERY
+    ("Gain 500g", gain_250g),
+    ("Magic Wand (remove 1 orange head)", gain_250g),
+    ("Gain extra wish option for rest of game", gain_250g),
+    ("30\% chance for twists to fail", gain_250g)
 ]
 
 clear_screen_command = "cls" if input("Are you on Windows or Mac?\n" +
@@ -66,10 +72,11 @@ for tup in wishListTuples:
 
 twistList = [
     # gold twists
-    "Gold over time effects cost 200g to use",
+    "Gold over time wishes cost 200g",
     "Next gold wish is deferred two turns",
     "Lose 50g every turn for 5 turns",
     "No gold wishes for two turns",
+    "Take all gold from human with least gold",
 
     # twists about wishes
     "Rock paper scissors the genie for wish to take effect",
@@ -78,6 +85,7 @@ twistList = [
     "Humans cannot speak to each other next turn",
     "Humans must speak in pig latin next turn",
     "Next turn's wishes are in broken Spanish",
+    "Next turn, all twists apply",
 
     # dice rolls
     "Roll a d12. Humans lose 10x gold of the number shown",
@@ -201,7 +209,11 @@ def display_wishes(turn):
         check_answer(wishGranted, turn)
     turn += 1
     totalTurns -= 1
-    input("\n")
+    ticketChance = input("\n")
+    if ticketChance == "ticket":
+        print("c. " + twistList[random.randint(0, (len(twistList) - 1 ))])
+        input("\n")
+
 
 def startFirstRound():
     input("Press enter to start the first round!")
