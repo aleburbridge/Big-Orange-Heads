@@ -25,14 +25,16 @@ class Player:
 
         wishes = []
         for i in range(number):
-            new_wish = None
-            while new_wish not in wishes:
+            while True:
                 rarity_value = random.randint(1, 10)
                 if rarity_value == 1:
                     new_wish = random.choice(legendary_wishes)
                 else:
                     new_wish = random.choice(normal_wishes)
-            wishes.append(new_wish)
+
+                if new_wish not in wishes:
+                    wishes.append(new_wish)
+                    break
 
         return wishes
 
@@ -43,12 +45,13 @@ class Player:
 
         twists = []
         for i in range(number):
-            new_twist = None
-            while new_twist not in twists:
+            while True:
                 if wish.rarity == Rarity.LEGENDARY:
                     new_twist = random.choice(legendary_twists)
                 else:
                     new_twist = random.choice(normal_twists)
-            twists.append(new_twist)
+                if new_twist not in twists:
+                    twists.append(new_twist)
+                    break
 
         return twists
