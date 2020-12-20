@@ -1,4 +1,3 @@
-import screen_utils
 from Choice import Choice
 from player import Player
 

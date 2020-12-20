@@ -1,6 +1,5 @@
-from action_stack import ActionStack
-from action import UseAction
-from action_tag import Tag
+from action.Action import UseAction
+from action.action_tag import Tag
 
 def active_gain_gold(value):
     def gain_value(game):

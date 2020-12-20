@@ -1,6 +1,6 @@
 import functools
 
-from action import Action
+from action.Action import Action
 
 
 class ActionStack:

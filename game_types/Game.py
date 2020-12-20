@@ -1,9 +1,7 @@
 import random
 
-import cmdline_interface
-from Choice import Choice
-from rarity import Rarity
-from player import Player, Genie, Victim
+from game_types.Choice import Choice
+from game_types.Player import Genie, Victim
 
 
 class Game:

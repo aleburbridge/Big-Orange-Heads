@@ -1,7 +1,7 @@
-import actions
-from action_tag import Tag
-from Wish import Wish
-from rarity import Rarity
+from action import actions
+from action.action_tag import Tag
+from game_types.wish.Wish import Wish
+from game_types.Rarity import Rarity
 
 
 def default_wishes():

@@ -1,6 +1,6 @@
-import actions
-from Twist import Twist
-from rarity import Rarity
+from action import actions
+from game_types.twist.Twist import Twist
+from game_types.Rarity import Rarity
 
 def default_twists():
     return [

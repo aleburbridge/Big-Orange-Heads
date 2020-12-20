@@ -1,4 +1,4 @@
-from rarity import Rarity
+from game_types.Rarity import Rarity
 import random
 
 

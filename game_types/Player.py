@@ -1,14 +1,12 @@
-import random
-import wish_twist_generators
+from action import wish_twist_generators
 
-from BaseApplicationActionStack import BaseApplicationActionStack
-from action import Action
-from action_stack import ActionStack
-from action_tag import Tag
-from default_twists import default_twists
-from default_wishes import default_wishes
-from rarity import Rarity
-from dice import Dice
+from action.BaseApplicationActionStack import BaseApplicationActionStack
+from action.Action import Action
+from action.action_stack import ActionStack
+from action.action_tag import Tag
+from game_types.twist.default_twists import default_twists
+from game_types.wish.default_wishes import default_wishes
+from game_types.Dice import Dice
 
 
 class Player:

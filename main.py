@@ -1,5 +1,5 @@
 from cmdline_interface import CmdlineInterface
-from game import Game
+from game_types.Game import Game
 
 print("sup")
 

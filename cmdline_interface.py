@@ -1,10 +1,9 @@
 import random
 import time
 
-from Choice import Choice
-from Twist import Twist
-from game import Game
-from player import Player
+from game_types.Choice import Choice
+from game_types.twist.Twist import Twist
+from game_types.Game import Game
 
 
 class CmdlineInterface:
