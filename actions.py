@@ -23,6 +23,13 @@ def d12_gold_roll(multiplier):
         player.add_gold_instant(roll_result * multiplier)
     return perform_d12_roll
 
+def gain_gold_for_orange_heads(multiplier):
+    def award_for_each_boh(game):
+        player = game.active_player()
+        orange_head_count = len([p for p in game.victims if p.big_orange_head])
+        player.add_gold_instant(orange_head_count * multiplier)
+    return award_for_each_boh
+
 def multiply_next_gold_amount(amount, num_uses):
     def apply_modifier(game):
         def multiplier(gold):
