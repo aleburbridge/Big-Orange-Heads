@@ -8,7 +8,7 @@ class BaseApplicationActionStack:
         self.base = base
         self._actions = actions
 
-    def add(self, action: Action):
+    def append(self, action: Action):
         self._actions.append(action)
         self._actions.sort(key=lambda a: a.priority)
         return self

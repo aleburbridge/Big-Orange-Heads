@@ -1,5 +1,6 @@
 from action.Action import UseAction
 from action.action_tag import Tag
+from action.wish_twist_generators import generate_n_no_dupes 
 
 def active_gain_gold(value):
     def gain_value(game):
@@ -47,3 +48,17 @@ def big_orange_head_wish():
         player = game.active_player()
         player.big_orange_head = True
     return give_head
+
+def add_wish_option_next(num_additional_options, num_uses):
+    def add_wish_option(game):
+        def expiring_additional_wish(base, wishes):
+            if action.num_uses <= 0:
+                print("no more!")
+                return []
+            action.num_uses -= 1
+            print("additional")
+            return generate_n_no_dupes(num_additional_options)(base, wishes)
+        player = game.active_player()
+        action = UseAction(expiring_additional_wish, 2, [Tag.WISH_MODIFIER], num_uses)
+        player.wish_generator_action_stack.append(action)
+    return add_wish_option

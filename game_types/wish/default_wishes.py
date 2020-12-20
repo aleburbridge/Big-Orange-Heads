@@ -14,5 +14,6 @@ def default_wishes():
         Wish("Gain 250g for each human with a big orange head", Rarity.COMMON, actions.gain_gold_for_orange_heads(250), [Tag.GOLD, Tag.INSTANT_GOLD, Tag.BIG_O_HEAD]),
         
         Wish("Gain 500 gold", Rarity.LEGENDARY, actions.active_gain_gold(500), [Tag.GOLD, Tag.INSTANT_GOLD]),
-        Wish("The next gold wish doubles the amount of gold you receive", Rarity.LEGENDARY, actions.multiply_next_gold_amount(2, 1), [Tag.GOLD])
+        Wish("The next gold wish doubles the amount of gold you receive", Rarity.LEGENDARY, actions.multiply_next_gold_amount(2, 1), [Tag.GOLD]),
+        Wish("Gain an extra wish option your next turn", Rarity.COMMON, actions.add_wish_option_next(1, 1), [Tag.WISH_MODIFIER])
     ]
