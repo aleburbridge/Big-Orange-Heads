@@ -1,8 +1,12 @@
 import random
 import wish_generators
 
+<<<<<<< HEAD
 from BaseApplicationActionStack import BaseApplicationActionStack
 from action import Action
+=======
+from action_stack import ActionStack
+>>>>>>> fc83810 (multiplier weesh)
 from default_twists import default_twists
 from default_wishes import default_wishes
 from rarity import Rarity
@@ -16,6 +20,7 @@ class Player:
         self.big_orange_head = False
         self.wishes = 3
         self.dice = Dice()
+        self.gold_modifiers = ActionStack(lambda x: x)
 
         self.wish_pool = default_wishes()
         self.twist_pool = default_twists()
@@ -25,6 +30,9 @@ class Player:
             [Action(wish_generators.generate_n_no_dupes(2), 0, [])]
         )
         self.generate_twist_choices = lambda wish: self.default_generate_twist_choices(wish, 2)
+    
+    def add_gold_instant(self, bonus):
+        self.gold += self.gold_modifiers.apply(bonus)
 
     def default_generate_twist_choices(self, wish, number):
         # this is slow but "perfect"

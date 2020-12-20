@@ -8,7 +8,7 @@ class ActionStack:
         self.base = base
         self._actions = []
 
-    def add(self, action: Action):
+    def append(self, action: Action):
         self._actions.append(action)
         self._actions.sort(key=lambda a: a.priority)
 
@@ -21,13 +21,13 @@ class ActionStack:
 
 if __name__ == "__main__":
     stack = ActionStack(lambda x: x)
-    stack.add(Action(lambda x: x + 1, 2, []))
-    stack.add(Action(lambda x: x * 2, 1, []))
+    stack.append(Action(lambda x: x + 1, 2, []))
+    stack.append(Action(lambda x: x * 2, 1, []))
 
     print(stack.apply(1))
 
     stack = ActionStack(lambda: 3)
-    stack.add(Action(lambda x: x + 1, 2, []))
-    stack.add(Action(lambda x: x * 2, 1, []))
+    stack.append(Action(lambda x: x + 1, 2, []))
+    stack.append(Action(lambda x: x * 2, 1, []))
 
     print(stack.apply())
