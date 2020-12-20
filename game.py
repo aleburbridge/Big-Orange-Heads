@@ -19,6 +19,9 @@ class Game:
 
         self.human_items = []
 
+    def active_player(self):
+        return self.victims[self.turn]
+
     def get_total_gold(self):
         return sum(map(lambda x: x.gold, self.victims))
 
@@ -30,8 +33,11 @@ class Game:
 
     def start_game(self):
         while self.get_total_wishes() != 0:
-            turn_player = self.victims[self.turn]
+            turn_player = self.active_player()
             wishes = turn_player.generate_wish_choices()
             choices = [Choice(wish, turn_player.generate_twist_choices(wish)) for wish in wishes]
             choice = self.interface.player_choose(turn_player, choices)
-            self.interface.genie_choose(turn_player, choice.twists)
+            twist = self.interface.genie_choose(turn_player, choice.twists)
+
+            choice.wish.action(self)
+            twist.action(self)
