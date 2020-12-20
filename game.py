@@ -3,16 +3,18 @@ import random
 import cmdline_interface
 from Choice import Choice
 from rarity import Rarity
-from player import Player
+from player import Player, Genie, Victim
 
 
 class Game:
     def __init__(self, player_names, interface):
-        players = [Player(x.lower()) for x in player_names]
-        self.genie = random.choice(players)
-        players.remove(self.genie)
-        random.shuffle(players)
-        self.victims = players
+        genie_name = random.choice(player_names)
+        self.genie = Genie(genie_name.lower())
+
+        player_names.remove(genie_name)
+
+        self.victims = [Victim(n.lower()) for n in player_names]
+        random.shuffle(self.victims)
         self.turn = 0
         self.interface = interface
 
@@ -32,7 +34,8 @@ class Game:
         while self.get_total_wishes() != 0:
             turn_player = self.active_player()
             wishes = turn_player.wish_generator_action_stack.apply(turn_player.wish_pool)
-            choices = [Choice(wish, turn_player.generate_twist_choices(wish)) for wish in wishes]
+            choices = [Choice(wish, self.genie.twist_generator_action_stack.apply(self.genie.twist_pool, wish))
+                       for wish in wishes]
             choice = self.interface.player_choose(self, choices)
             twist = self.interface.genie_choose(self, choice.twists)
 

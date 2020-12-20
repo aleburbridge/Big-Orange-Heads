@@ -1,5 +1,5 @@
 import random
-import wish_generators
+import wish_twist_generators
 
 from BaseApplicationActionStack import BaseApplicationActionStack
 from action import Action
@@ -13,33 +13,29 @@ class Player:
     def __init__(self, name):
         self.name = name
         self.gold = 0
+
+
+class Genie(Player):
+    def __init__(self, name):
+        Player.__init__(self, name)
+        self.twist_pool = default_twists()
+        self.twist_generator_action_stack = BaseApplicationActionStack(
+            wish_twist_generators.default_twist_generator_for_pool,
+            [Action(wish_twist_generators.generate_n_no_dupes(2), 0, [])]
+        )
+
+
+class Victim(Player):
+    def __init__(self, name):
+        Player.__init__(self, name)
+        self.gold = 0
         self.big_orange_head = False
         self.wishes = 3
         self.dice = Dice()
 
         self.wish_pool = default_wishes()
-        self.twist_pool = default_twists()
 
         self.wish_generator_action_stack = BaseApplicationActionStack(
-            wish_generators.default_wish_generator_for_pool,
-            [Action(wish_generators.generate_n_no_dupes(2), 0, [])]
+            wish_twist_generators.default_wish_generator_for_pool,
+            [Action(wish_twist_generators.generate_n_no_dupes(2), 0, [])]
         )
-        self.generate_twist_choices = lambda wish: self.default_generate_twist_choices(wish, 2)
-
-    def default_generate_twist_choices(self, wish, number):
-        # this is slow but "perfect"
-        legendary_twists = list(filter(lambda w: w.rarity == Rarity.LEGENDARY, self.twist_pool))
-        normal_twists = list(filter(lambda w: w.rarity == Rarity.COMMON, self.twist_pool))
-
-        twists = []
-        for i in range(number):
-            while True:
-                if wish.rarity == Rarity.LEGENDARY:
-                    new_twist = random.choice(legendary_twists)
-                else:
-                    new_twist = random.choice(normal_twists)
-                if new_twist not in twists:
-                    twists.append(new_twist)
-                    break
-
-        return twists

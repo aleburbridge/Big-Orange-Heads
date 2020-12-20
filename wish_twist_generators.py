@@ -17,15 +17,29 @@ def default_wish_generator_for_pool(pool):
     return default_generate_wish_choice
 
 
+def default_twist_generator_for_pool(pool, wish):
+    def default_generate_twist_for_wish():
+        if wish.rarity == Rarity.LEGENDARY:
+            legendary_twists = list(filter(lambda w: w.rarity == Rarity.LEGENDARY, pool))
+            new_twist = random.choice(legendary_twists)
+        else:
+            normal_twists = list(filter(lambda w: w.rarity == Rarity.COMMON, pool))
+            new_twist = random.choice(normal_twists)
+
+        return new_twist
+
+    return default_generate_twist_for_wish
+
+
 def generate_n_no_dupes(n):
-    def generator_n(base, wishes):
+    def generator_n(base, objs):
         for i in range(n):
             while True:
-                new_wish = base()
+                new_obj = base()
 
-                if new_wish not in wishes:
-                    wishes.append(new_wish)
+                if new_obj not in objs:
+                    objs.append(new_obj)
                     break
-        return wishes
+        return objs
 
     return generator_n

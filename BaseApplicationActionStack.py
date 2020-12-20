@@ -13,11 +13,11 @@ class BaseApplicationActionStack:
         self._actions.sort(key=lambda a: a.priority)
         return self
 
-    def apply(self, pool):
+    def apply(self, *args):
         result = []
-        base_with_applied_pool = self.base(pool)
+        applied_base = self.base(*args)
         for action in self._actions:
-            result = action.fn(base_with_applied_pool, result)
+            result = action.fn(applied_base, result)
         return result
 
 
