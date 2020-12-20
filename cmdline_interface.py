@@ -1,6 +1,7 @@
 import screen_utils
 from Choice import Choice
 from Twist import Twist
+from game import Game
 from player import Player
 
 
@@ -10,11 +11,12 @@ class CmdlineInterface:
         for idx, twist in enumerate(twists):
             print(chr(ord('a') + idx) + ". " + twist.description)
 
-    def player_choose(self, player: Player, choices: list[Choice]):
+    def player_choose(self, game: Game, choices: list[Choice]):
         screen_utils.create_suspense(5)
 
-        print("Wisher: " + player.name.capitalize() + " (" + str(player.wishes) + " wishes left)")
-        print("Gold: " + str(player.gold))
+        active_player = game.active_player()
+        print("Wisher: " + active_player.name.capitalize() + " (" + str(active_player.wishes) + " wishes left)")
+        print("Gold: " + str(active_player.gold))
 
         print("~~ WISHES ~~\n")
 
@@ -26,15 +28,16 @@ class CmdlineInterface:
             print()
 
         while True:
-            response = int(input("\n\n"))
+            response = int(input("\n"))
 
             if response in range(len(choices)):
+                print("\n")
                 return choices[response]
 
             print("that wasnt a valid response dummy...")
 
 
-    def genie_choose(self, player: Player, twists: list[Twist]):
+    def genie_choose(self, game: Game, twists: list[Twist]):
         print("GENIE! CHOOSE YOUR TWIST!")
         for idx, twist in enumerate(twists):
             print(str(idx) + ". " + twist.description)
