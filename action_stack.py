@@ -8,26 +8,27 @@ class ActionStack:
         self.base = base
         self._actions = []
 
-    def add(self, action: Action):
+    def append(self, action: Action):
         self._actions.append(action)
         self._actions.sort(key=lambda a: a.priority)
 
-    def apply(self, *args):
+    def apply(self, tags, *args):
         result = self.base(*args)
-        for action in self._actions:
+        filtered_actions = filter(lambda x: any(tag in tags for tag in x.tags), self._actions)
+        for action in filtered_actions:
             result = action.fn(result)
         return result
 
 
 if __name__ == "__main__":
     stack = ActionStack(lambda x: x)
-    stack.add(Action(lambda x: x + 1, 2, []))
-    stack.add(Action(lambda x: x * 2, 1, []))
+    stack.append(Action(lambda x: x + 1, 2, []))
+    stack.append(Action(lambda x: x * 2, 1, []))
 
     print(stack.apply(1))
 
     stack = ActionStack(lambda: 3)
-    stack.add(Action(lambda x: x + 1, 2, []))
-    stack.add(Action(lambda x: x * 2, 1, []))
+    stack.append(Action(lambda x: x + 1, 2, []))
+    stack.append(Action(lambda x: x * 2, 1, []))
 
     print(stack.apply())
