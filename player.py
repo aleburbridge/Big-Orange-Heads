@@ -41,7 +41,7 @@ class Player:
         normal_twists = list(filter(lambda w: w.rarity == Rarity.COMMON, self.twist_pool))
 
         twists = []
-        for i in range(number):
+        for _ in range(number):
             while True:
                 if wish.rarity == Rarity.LEGENDARY:
                     new_twist = random.choice(legendary_twists)
