@@ -4,6 +4,7 @@ def active_gain_gold(value):
 
     return gain_value
 
+
 def d12_gold_roll_function(multiplier):
     def perform_d12_roll(game):
         roll_result = game.active_player().dice.perform_d12_roll(game)

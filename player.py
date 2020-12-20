@@ -1,5 +1,8 @@
 import random
+import wish_generators
 
+from BaseApplicationActionStack import BaseApplicationActionStack
+from action import Action
 from default_twists import default_twists
 from default_wishes import default_wishes
 from rarity import Rarity
@@ -17,28 +20,11 @@ class Player:
         self.wish_pool = default_wishes()
         self.twist_pool = default_twists()
 
-        self.generate_wish_choices = lambda: self.default_generate_wish_choices(2)
+        self.wish_generator_action_stack = BaseApplicationActionStack(
+            wish_generators.default_wish_generator_for_pool,
+            [Action(wish_generators.generate_n_no_dupes(2), 0, [])]
+        )
         self.generate_twist_choices = lambda wish: self.default_generate_twist_choices(wish, 2)
-
-    def default_generate_wish_choices(self, number):
-        # this is slow but "perfect"
-        legendary_wishes = list(filter(lambda w: w.rarity == Rarity.LEGENDARY, self.wish_pool))
-        normal_wishes = list(filter(lambda w: w.rarity == Rarity.COMMON, self.wish_pool))
-
-        wishes = []
-        for i in range(number):
-            while True:
-                rarity_value = random.randint(1, 10)
-                if rarity_value == 1:
-                    new_wish = random.choice(legendary_wishes)
-                else:
-                    new_wish = random.choice(normal_wishes)
-
-                if new_wish not in wishes:
-                    wishes.append(new_wish)
-                    break
-
-        return wishes
 
     def default_generate_twist_choices(self, wish, number):
         # this is slow but "perfect"

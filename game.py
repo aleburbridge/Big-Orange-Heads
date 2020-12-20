@@ -31,7 +31,7 @@ class Game:
         self.interface.display_genie_roll(self.victims, self.genie)
         while self.get_total_wishes() != 0:
             turn_player = self.active_player()
-            wishes = turn_player.generate_wish_choices()
+            wishes = turn_player.wish_generator_action_stack.apply(turn_player.wish_pool)
             choices = [Choice(wish, turn_player.generate_twist_choices(wish)) for wish in wishes]
             choice = self.interface.player_choose(self, choices)
             twist = self.interface.genie_choose(self, choice.twists)
