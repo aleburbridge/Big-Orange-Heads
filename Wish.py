@@ -9,5 +9,5 @@ class Wish:
         self.tags = tags
 
 
-class Tags(Enum):
+class Tag(Enum):
     GOLD = 1
