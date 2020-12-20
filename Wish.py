@@ -1,6 +1,3 @@
-from enum import Enum
-
-
 class Wish:
     def __init__(self, description, rarity, action, tags):
         self.description = description
@@ -8,6 +5,3 @@ class Wish:
         self.action = action
         self.tags = tags
 
-
-class Tag(Enum):
-    GOLD = 1

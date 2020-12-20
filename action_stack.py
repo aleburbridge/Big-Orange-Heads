@@ -12,9 +12,10 @@ class ActionStack:
         self._actions.append(action)
         self._actions.sort(key=lambda a: a.priority)
 
-    def apply(self, *args):
+    def apply(self, tags, *args):
         result = self.base(*args)
-        for action in self._actions:
+        filtered_actions = filter(lambda x: any(tag in tags for tag in x.tags), self._actions)
+        for action in filtered_actions:
             result = action.fn(result)
         return result
 

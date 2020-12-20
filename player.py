@@ -4,6 +4,7 @@ import wish_generators
 from BaseApplicationActionStack import BaseApplicationActionStack
 from action import Action
 from action_stack import ActionStack
+from action_tag import Tag
 from default_twists import default_twists
 from default_wishes import default_wishes
 from rarity import Rarity
@@ -29,7 +30,10 @@ class Player:
         self.generate_twist_choices = lambda wish: self.default_generate_twist_choices(wish, 2)
     
     def add_gold_instant(self, bonus):
-        self.gold += self.gold_modifiers.apply(bonus)
+        self.gold += self.gold_modifiers.apply([Tag.INSTANT_GOLD], bonus)
+
+    def sub_gold_instant(self, amount):
+        self.gold -= amount
 
     def default_generate_twist_choices(self, wish, number):
         # this is slow but "perfect"

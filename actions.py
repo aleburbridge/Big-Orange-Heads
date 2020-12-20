@@ -1,5 +1,6 @@
 from action_stack import ActionStack
-from action import Action, UseAction
+from action import UseAction
+from action_tag import Tag
 
 def active_gain_gold(value):
     def gain_value(game):
@@ -7,6 +8,13 @@ def active_gain_gold(value):
         player.add_gold_instant(value)
 
     return gain_value
+
+def active_sub_gold(value):
+    def lose_value(game):
+        player = game.active_player()
+        player.sub_gold_instant(value)
+    
+    return lose_value
 
 def d12_gold_roll(multiplier):
     def perform_d12_roll(game):
@@ -23,7 +31,7 @@ def multiply_next_gold_amount(amount, num_uses):
                 return gold * amount 
             return gold
 
-        gold_multiplier_action = UseAction(multiplier, 1, [], num_uses)
+        gold_multiplier_action = UseAction(multiplier, 1, [Tag.INSTANT_GOLD], num_uses)
         for victim in game.victims:
             victim.gold_modifiers.append(gold_multiplier_action)
     return apply_modifier
