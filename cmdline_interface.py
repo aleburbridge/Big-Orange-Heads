@@ -17,6 +17,7 @@ class CmdlineInterface:
         self.create_suspense(5)
 
         active_player = game.active_player()
+        print("\n")
         print("Wisher: " + active_player.name.capitalize() + " (" + str(active_player.wishes) + " wishes left)")
         print("Gold: " + str(active_player.gold))
 
@@ -62,6 +63,7 @@ class CmdlineInterface:
             print(str(random.randint(1,dice_size)) + (" " * 5), end="\r")
             time.sleep(x / num_rolls)
         print(str(result) + (" " * 5))
+        time.sleep(1)
 
     def display_genie_roll(self, victims, genie):
         all_players = victims + [genie]
