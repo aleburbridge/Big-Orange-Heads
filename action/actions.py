@@ -41,3 +41,9 @@ def multiply_next_gold_amount(amount, num_uses):
         for victim in game.victims:
             victim.gold_modifiers.append(gold_multiplier_action)
     return apply_modifier
+
+def big_orange_head_wish():
+    def give_head(game): #lol
+        player = game.active_player()
+        player.big_orange_head = True
+    return give_head
