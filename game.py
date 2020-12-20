@@ -29,6 +29,7 @@ class Game:
         return sum(map(lambda x: x.wishes, self.victims))
 
     def start_game(self):
+        self.interface.display_genie_roll(self.victims, self.genie)
         while self.get_total_wishes() != 0:
             turn_player = self.active_player()
             wishes = turn_player.generate_wish_choices()
@@ -40,5 +41,5 @@ class Game:
             twist.action(self)
 
             turn_player.wishes -= 1
-
             self.turn += 1
+        print("GAME OVA")

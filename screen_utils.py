@@ -1,13 +1,3 @@
 import time
+import random
 
-
-def create_suspense(suspense_amount):
-    # for x in range(1, suspense_amount):
-    #     b = "Supsense" + "." * x
-    #     print(b, end="\r")
-    #     time.sleep(1)
-    pass
-
-
-def print_line_break():
-    print("--------------------------------------------------------------------")

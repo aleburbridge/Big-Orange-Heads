@@ -1,3 +1,6 @@
+import random
+import time
+
 import screen_utils
 from Choice import Choice
 from Twist import Twist
@@ -12,7 +15,7 @@ class CmdlineInterface:
             print(chr(ord('a') + idx) + ". " + twist.description)
 
     def player_choose(self, game: Game, choices: list[Choice]):
-        screen_utils.create_suspense(5)
+        self.create_suspense(5)
 
         active_player = game.active_player()
         print("Wisher: " + active_player.name.capitalize() + " (" + str(active_player.wishes) + " wishes left)")
@@ -22,7 +25,7 @@ class CmdlineInterface:
 
         for c_idx, choice in enumerate(choices):
             print(str(c_idx) + ". " + choice.wish.description)
-            screen_utils.print_line_break()
+            self.print_line_break()
             for t_idx, twist in enumerate(choice.twists):
                 print(chr(ord('a') + t_idx) + ". " + twist.description)
             print()
@@ -47,3 +50,31 @@ class CmdlineInterface:
 
             if response in range(len(twists)):
                 return twists[response]
+    
+    def create_suspense(self, suspense_amount):
+        # for x in range(1, suspense_amount):
+        #     b = "Supsense" + "." * x
+        #     print(b, end="\r")
+        #     time.sleep(1)
+        pass
+
+    def display_dice_roll(self, num_rolls, result, dice_size):
+        for x in range(1, num_rolls):
+            print(random.randint(1,dice_size), end="\r")
+            time.sleep(x / num_rolls)
+        print(result)
+
+    def display_genie_roll(self, victims, genie):
+        all_players = victims + [genie]
+        print("The genie is ...")
+        for i in range(len(all_players) * 5):
+            print(random.choice(all_players).name + (" " * 10), end="\r")
+            time.sleep(i / (len(all_players) * 5))
+        print(genie.name + "!" + (" " * 10))
+        time.sleep(2)
+        print("\n")
+
+
+
+    def print_line_break(self):
+        print("--------------------------------------------------------------------")
