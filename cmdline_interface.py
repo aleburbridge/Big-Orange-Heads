@@ -5,7 +5,8 @@ from player import Player
 
 class CmdlineInterface:
     def player_choose(self, player: Player, choices: list[Choice]):
-        screen_utils.create_suspense()
+        print("hi")
+        screen_utils.create_suspense(5)
 
         print("Wisher: " + player.name.capitalize() + " (" + str(player.wishes) + " wishes left)")
         print("Gold: " + str(player.gold))

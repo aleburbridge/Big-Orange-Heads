@@ -12,8 +12,8 @@ class Player:
         self.big_orange_head = False
         self.wishes = 3
 
-        self.wish_pool = default_wishes
-        self.twist_pool = default_twists
+        self.wish_pool = default_wishes()
+        self.twist_pool = default_twists()
 
         self.generate_wish_choices = lambda: self.default_generate_wish_choices(2)
         self.generate_twist_choices = lambda wish: self.default_generate_twist_choices(wish, 2)

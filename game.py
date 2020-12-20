@@ -30,7 +30,10 @@ class Game:
 
     def start_game(self):
         while self.get_total_wishes() != 0:
+            print("hi")
             turn_player = self.victims[self.turn]
             wishes = turn_player.generate_wish_choices()
+            print("hi3")
             choices = [Choice(wish, turn_player.generate_twist_choices(wish)) for wish in wishes]
+            print("hi2")
             self.interface.player_choose(turn_player, choices)
