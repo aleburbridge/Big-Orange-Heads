@@ -3,6 +3,8 @@ import wish_twist_generators
 
 from BaseApplicationActionStack import BaseApplicationActionStack
 from action import Action
+from action_stack import ActionStack
+from action_tag import Tag
 from default_twists import default_twists
 from default_wishes import default_wishes
 from rarity import Rarity
@@ -13,6 +15,13 @@ class Player:
     def __init__(self, name):
         self.name = name
         self.gold = 0
+        self.gold_modifiers = ActionStack(lambda x: x)
+
+    def add_gold_instant(self, bonus):
+        self.gold += self.gold_modifiers.apply([Tag.INSTANT_GOLD], bonus)
+
+    def sub_gold_instant(self, amount):
+        self.gold -= amount
 
 
 class Genie(Player):
