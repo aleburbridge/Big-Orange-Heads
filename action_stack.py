@@ -19,16 +19,15 @@ class ActionStack:
         return result
 
 
-
 if __name__ == "__main__":
     stack = ActionStack(lambda x: x)
     stack.add(Action(lambda x: x + 1, 2, []))
-    stack.add(Action(lambda x: x*2, 1, []))
+    stack.add(Action(lambda x: x * 2, 1, []))
 
     print(stack.apply(1))
 
     stack = ActionStack(lambda: 3)
     stack.add(Action(lambda x: x + 1, 2, []))
-    stack.add(Action(lambda x: x*2, 1, []))
+    stack.add(Action(lambda x: x * 2, 1, []))
 
     print(stack.apply())
