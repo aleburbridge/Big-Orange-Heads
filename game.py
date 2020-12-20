@@ -4,7 +4,6 @@ import cmdline_interface
 from Choice import Choice
 from rarity import Rarity
 from player import Player
-import screen_utils
 
 
 class Game:
