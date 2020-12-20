@@ -1,12 +1,9 @@
 import random
 import wish_generators
 
-<<<<<<< HEAD
 from BaseApplicationActionStack import BaseApplicationActionStack
 from action import Action
-=======
 from action_stack import ActionStack
->>>>>>> fc83810 (multiplier weesh)
 from default_twists import default_twists
 from default_wishes import default_wishes
 from rarity import Rarity
