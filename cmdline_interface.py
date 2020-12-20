@@ -1,7 +1,6 @@
 import random
 import time
 
-import screen_utils
 from Choice import Choice
 from Twist import Twist
 from game import Game
@@ -60,9 +59,9 @@ class CmdlineInterface:
 
     def display_dice_roll(self, num_rolls, result, dice_size):
         for x in range(1, num_rolls):
-            print(random.randint(1,dice_size), end="\r")
+            print(str(random.randint(1,dice_size)) + (" " * 5), end="\r")
             time.sleep(x / num_rolls)
-        print(result)
+        print(str(result) + (" " * 5))
 
     def display_genie_roll(self, victims, genie):
         all_players = victims + [genie]
@@ -73,8 +72,6 @@ class CmdlineInterface:
         print(genie.name + "!" + (" " * 10))
         time.sleep(2)
         print("\n")
-
-
 
     def print_line_break(self):
         print("--------------------------------------------------------------------")

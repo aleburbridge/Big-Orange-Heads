@@ -3,6 +3,7 @@ import random
 from default_twists import default_twists
 from default_wishes import default_wishes
 from rarity import Rarity
+from dice import Dice
 
 
 class Player:
@@ -11,6 +12,7 @@ class Player:
         self.gold = 0
         self.big_orange_head = False
         self.wishes = 3
+        self.dice = Dice()
 
         self.wish_pool = default_wishes()
         self.twist_pool = default_twists()
