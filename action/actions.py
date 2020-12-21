@@ -43,18 +43,20 @@ def multiply_next_gold_amount(amount, num_uses):
             victim.gold_modifiers.append(gold_multiplier_action)
     return apply_modifier
 
+
 def big_orange_head_wish():
-    def give_head(game): #lol
+    def give_head(game):  # lol
         player = game.active_player()
         player.big_orange_head = True
     return give_head
+
 
 def add_wish_option_next(num_additional_options, num_uses):
     def add_wish_option(game):
         def expiring_additional_wish(base, wishes):
             if action.num_uses <= 0:
                 print("no more!")
-                return []
+                return wishes
             action.num_uses -= 1
             print("additional")
             return generate_n_no_dupes(num_additional_options)(base, wishes)
