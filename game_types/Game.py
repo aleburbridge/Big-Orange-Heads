@@ -42,4 +42,8 @@ class Game:
 
             turn_player.wishes -= 1
             self.turn += 1
+
+            if self.get_total_gold() >= 1500:
+                print("PLAYER WIN")
+                break
         print("GAME OVA")
