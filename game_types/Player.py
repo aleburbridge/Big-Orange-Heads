@@ -1,10 +1,10 @@
 from action import wish_twist_generators
 
-from action.BaseApplicationActionStack import BaseApplicationActionStack
 from action.Action import Action
+from action.GeneratorStack import GeneratorStack
 from action.action_stack import ActionStack
 from action.action_tag import Tag
-from game_types.twist.default_twists import default_twists
+from action.wish_twist_generators import generate_infinite, random_wish_from_pool, random_twist_from_pool
 from game_types.wish.default_wishes import default_wishes
 from game_types.Dice import Dice
 
@@ -13,10 +13,10 @@ class Player:
     def __init__(self, name):
         self.name = name
         self.gold = 0
-        self.gold_modifiers = ActionStack(lambda x: x)
+        self.gold_modifiers = ActionStack()
 
     def add_gold_instant(self, bonus):
-        self.gold += self.gold_modifiers.apply([Tag.INSTANT_GOLD], bonus)
+        self.gold += self.gold_modifiers.apply(bonus, [Tag.INSTANT_GOLD])
 
     def sub_gold_instant(self, amount):
         self.gold -= amount
@@ -25,11 +25,17 @@ class Player:
 class Genie(Player):
     def __init__(self, name):
         Player.__init__(self, name)
-        self.twist_pool = default_twists()
-        self.twist_generator_action_stack = BaseApplicationActionStack(
-            wish_twist_generators.default_twist_generator_for_pool,
-            [Action(wish_twist_generators.generate_n_no_dupes(2), 0, [])]
-        )
+
+        self.twist_count_generator_stack = ActionStack()
+        # self.twist_generator = twist_generator_for_wish()
+
+    # this doesnt allow for the same kind of modification as the wish generator, but is it needed?
+    def get_twist_options_for_wish(self, wish):
+        twist_count = self.twist_count_generator_stack.apply(2)
+        return [x for _, x in zip(range(twist_count),
+                                  generate_infinite(lambda: random_twist_from_pool(default_wishes(), wish))
+                                  )
+                ]
 
 
 class Victim(Player):
@@ -40,9 +46,14 @@ class Victim(Player):
         self.wishes = 3
         self.dice = Dice()
 
-        self.wish_pool = default_wishes()
+        # self.wish_pool = default_wishes()
 
-        self.wish_generator_action_stack = BaseApplicationActionStack(
-            wish_twist_generators.default_wish_generator_for_pool,
-            [Action(wish_twist_generators.generate_n_no_dupes(2), 0, [])]
-        )
+        self.wish_count_generator_stack = ActionStack()
+
+        self.wish_generator_stack = GeneratorStack()
+        self.wish_generator_stack.append(
+            Action(generate_infinite(lambda: random_wish_from_pool(default_wishes())), 100, []))
+
+    def get_wish_options(self):
+        wish_count = self.wish_count_generator_stack.apply(2)
+        return self.wish_generator_stack.generate_n(wish_count)
