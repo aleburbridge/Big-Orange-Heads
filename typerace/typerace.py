@@ -4,8 +4,8 @@ import datetime
 from raceprompts import text
 client = discord.Client()
 
-TOKEN = 'ODI3NzY5NTE4MzQ0MzcyMjU0.YGf2cA.UCt7XG3gaO-nXRvp2g_4pdUks6Y'
-channelID = 744728945873780739
+TOKEN = 'YOUR TOKEN HERE'
+channelID = 'YOUR ID HERE (int)'
 
 @client.event
 async def on_ready():
